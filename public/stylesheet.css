@@ -1,0 +1,52 @@
+body {
+    background: white;
+    width: 100%;
+    height: 100%;
+}
+#logo {
+    float: right;
+    width: 50px;
+    height: auto;
+    margin: 5px;
+}
+input {
+    display: block;
+    font-size: 22px;
+    height: 30px;
+    margin: 0 auto;
+    text-align: center;
+    width: 30%;
+    font-family: Courier New;
+    font-size: 21px;
+}
+.gifElement img {
+    width: 200px;
+    height: auto;
+}
+
+#gifsList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: absolute;
+}
+#gifsTrending {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+}
+#trendingTitle {
+    align: left;
+    font-family: Courier New;
+    font-size: 21px;
+}
+#modal {
+    font-family: Courier New;
+}
+#modal img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
