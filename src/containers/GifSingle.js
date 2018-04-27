@@ -13,7 +13,7 @@ export default class GifSingle extends React.Component {
         console.log(
             "this.props.match.params.cid : " + this.props.match.params.cid
         );
-        const url = `http://api.giphy.com/v1/gifs/${
+        const url = `https://api.giphy.com/v1/gifs/${
             this.props.match.params.cid
         }?api_key=dc6zaTOxFJmzC`;
 

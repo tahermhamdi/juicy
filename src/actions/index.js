@@ -8,7 +8,7 @@ export const CLOSE_MODAL = "CLOSE_MODAL";
 
 export function requestGifs(criteria = null) {
     //const data = request.get(`${API_URL}${term.replace(/\s/g, "+")}${API_KEY}`);
-    const url = `http://api.giphy.com/v1/gifs/search?q=${criteria.replace(
+    const url = `https://api.giphy.com/v1/gifs/search?q=${criteria.replace(
         /\s/g,
         "+"
     )}&api_key=dc6zaTOxFJmzC&limit=20`;
@@ -20,7 +20,7 @@ export function requestGifs(criteria = null) {
     };
 }
 export function requestTrending() {
-    const url = `http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=5`;
+    const url = `https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=5`;
 
     const data = axios.get(url);
     return {
