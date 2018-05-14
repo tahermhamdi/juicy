@@ -1,12 +1,16 @@
 import { combineReducers } from "redux";
-import GifsReducer from "./gifs";
-import TrendingReducer from "./trending";
-import ModalReducer from "./modal";
+import ImageListReducer from "./imageslist";
+import UpdateImageReducer from "./updateimage";
+import DeleteImageReducer from "./deleteimage";
+import UploadImageReducer from "./uploadimage";
+import UpdateFieldReducer from "./updatefield";
 
 const rootReducer = combineReducers({
-    gifs: GifsReducer,
-    trending: TrendingReducer,
-    modal: ModalReducer
+    imageslist: ImageListReducer,
+    updateimage: UpdateImageReducer,
+    deleteimage: DeleteImageReducer,
+    uploadimage: UploadImageReducer,
+    updatefield: UpdateFieldReducer
 });
 
 export default rootReducer;

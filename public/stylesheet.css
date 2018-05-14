@@ -1,52 +1,107 @@
 body {
-    background: white;
+    background-color: rgba(0, 0, 0, 0.1);
     width: 100%;
     height: 100%;
-}
-#logo {
-    float: right;
-    width: 50px;
-    height: auto;
-    margin: 5px;
-}
-input {
-    display: block;
-    font-size: 22px;
-    height: 30px;
-    margin: 0 auto;
-    text-align: center;
-    width: 30%;
     font-family: Courier New;
-    font-size: 21px;
 }
-.gifElement img {
+
+.imagesDivTag {
+    display: flex;
+    align-content: space-between;
+}
+.imageDivTag {
+    width: 220px;
+    height: auto;
+    overflow: hidden;
+}
+.imageImgTag {
     width: 200px;
     height: auto;
 }
-
-#gifsList {
+.formImgTag {
+    width: 300px;
+    height: auto;
+}
+.formDivTag {
+    width: 350px;
+    height: auto;
+    overflow: hidden;
+}
+.header {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: flex-end;
     position: absolute;
+    right: -1px;
+    top: -50px;
+    width: 120px;
+    height: auto;
 }
-#gifsTrending {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    position: relative;
+.container {
+    width: 95%;
+    height: 500px;
+    margin: auto;
+    margin-top: 100px;
 }
-#trendingTitle {
-    align: left;
-    font-family: Courier New;
-    font-size: 21px;
+.links {
+    width: 15%;
+    height: 500px;
+    background: white;
+    float: left;
 }
-#modal {
-    font-family: Courier New;
+.likes {
+    margin-left: 15%;
+    height: 500px;
+    background: white;
 }
-#modal img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+.comments {
+    margin-left: 15%;
+    height: 500px;
+    background: white;
+}
+.formUploader {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -250px;
+    width: 500px;
+    height: 200px;
+    border: 4px dashed #000;
+}
+.formUploader p {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 170px;
+    color: #000000;
+}
+.formUploader input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+}
+.formUploader button {
+    margin: 0;
+    color: #000;
+    background: #fd6b31;
+    border: none;
+    width: 508px;
+    height: 35px;
+    margin-top: -20px;
+    margin-left: -4px;
+    border-radius: 4px;
+    border-bottom: 4px solid #fd6b31;
+    transition: all 0.2s ease;
+    outline: none;
+}
+.formUploader button:hover {
+    background: blue;
+    color: black;
+}
+.formUploader button:active {
+    border: 0;
 }

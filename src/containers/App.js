@@ -1,59 +1,34 @@
 import React from "react";
 import * as Actions from "../actions";
-import GifsList from "../components/GifsList";
-import GifsTrending from "../components/GifsTrending";
-import GifModal from "../components/GifModal";
-import Search from "../components/Search";
-import { connect } from "react-redux";
-import { Provider } from "react-redux";
-import { bindActionCreators } from "redux";
+import Header from "../components/Header";
+import ImagesList from "../components/ImagesList";
+import Uploader from "../components/Uploader";
+import { Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-class App extends React.Component {
-    componentDidMount() {
-        this.props.actions.requestTrending();
-    }
+export default class App extends React.Component {
     render() {
         return (
-            <div className="app">
-                <Search onCriteriaChange={this.props.actions.requestGifs} />
-                <div id="trendingTitle">NOW TRENDING</div>
-                <GifsTrending
-                    trending={this.props.trending}
-                    onImageSelect={selectedImage =>
-                        this.props.actions.openModal({ selectedImage })
-                    }
-                />
-                <div />
-                <hr />
-                <GifsList
-                    gifs={this.props.gifs}
-                    onImageSelect={selectedImage =>
-                        this.props.actions.openModal({ selectedImage })
-                    }
-                />
-                <GifModal
-                    modalVisible={this.props.modalVisible}
-                    selectedImage={this.props.selectedImage}
-                    onRequestClose={() => this.props.actions.closeModal()}
-                />
-            </div>
+            <BrowserRouter>
+                <div className="app">
+                    <Route path="/" render={() => <Header />} />
+                    <div className="container">
+                        <div className="links">
+                            <ul>
+                                <li>
+                                    <Link to="/imageslist">Images list</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <Route
+                            path="/imageslist"
+                            render={() => <ImagesList />}
+                        />
+                        <Route path="/" render={() => <Uploader />} />
+                    </div>
+                </div>
+            </BrowserRouter>
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        gifs: state.gifs.data,
-        trending: state.trending.data,
-        modalVisible: state.modal.modalVisible,
-        selectedImage: state.modal.selectedImage
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(Actions, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);

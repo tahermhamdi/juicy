@@ -1,42 +1,51 @@
 import axios from "axios";
 
-export const REQUEST_GIFS = "REQUEST_GIFS";
-export const REQUEST_TRENDING = "REQUEST_TRENDING";
-export const REQUEST_SINGLE = "REQUEST_SINGLE";
-export const OPEN_MODAL = "OPEN_MODAL";
-export const CLOSE_MODAL = "CLOSE_MODAL";
-
-export function requestGifs(criteria = null) {
-    //const data = request.get(`${API_URL}${term.replace(/\s/g, "+")}${API_KEY}`);
-    const url = `https://api.giphy.com/v1/gifs/search?q=${criteria.replace(
-        /\s/g,
-        "+"
-    )}&api_key=dc6zaTOxFJmzC&limit=20`;
-
-    const data = axios.get(url);
+export const IMAGES_LIST = "IMAGES_LIST";
+export const REQUEST_IMAGE = "REQUEST_IMAGE";
+export const UPLOAD_IMAGE = "UPLOAD_IMAGE";
+export const UPDATE_IMAGE = "UPDATE_IMAGE";
+export const DELETE_IMAGE = "DELETE_IMAGE";
+export const UPDATE_FIELD = "UPDATE_FIELD";
+export async function imagesList() {
+    const { data } = await axios.get("/imageslist");
     return {
-        type: REQUEST_GIFS,
-        payload: data
+        type: IMAGES_LIST,
+        imageslist: data
     };
 }
-export function requestTrending() {
-    const url = `https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=5`;
-
-    const data = axios.get(url);
+export async function requestImage(id) {
+    const { data } = await axios.get("/image", id);
     return {
-        type: REQUEST_TRENDING,
-        payload: data
+        type: REQUEST_IMAGE,
+        imagedata: data
     };
 }
-export function openModal(gif) {
+export async function updateField(data) {
     return {
-        type: OPEN_MODAL,
-        gif
+        type: UPDATE_FIELD,
+        field: data
     };
 }
-
-export function closeModal() {
+export async function updateImage() {
+    const { data } = await axios.post("/updateimage");
     return {
-        type: CLOSE_MODAL
+        type: UPDATE_IMAGE,
+        imageslist: data
+    };
+}
+export async function uploadImage(formData) {
+    console.log("into uploadImage action");
+    const { data } = await axios.post("/uploadimage", formData);
+    console.log("data : ", data);
+    return {
+        type: UPLOAD_IMAGE,
+        imagedata: data
+    };
+}
+export async function deleteImage() {
+    const { data } = await axios.post("/deleteimage");
+    return {
+        type: DELETE_IMAGE,
+        imageslist: data
     };
 }

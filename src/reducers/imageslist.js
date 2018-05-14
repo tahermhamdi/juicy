@@ -1,16 +1,17 @@
-import { REQUEST_GIFS } from "../actions";
+import { IMAGES_LIST } from "../actions";
 
 const initialState = {
     data: []
 };
 
-export default function gifs(state = initialState, action) {
+export default function imageslist(state = initialState, action) {
     switch (action.type) {
-        case REQUEST_GIFS:
+        case IMAGES_LIST:
             return {
                 ...state,
-                data: action.payload.data.data
+                data: action.imageslist
             };
+
         default:
             return state;
     }
