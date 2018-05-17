@@ -14,6 +14,10 @@ const axios = require("axios");
 const criteria = require("./criteria");
 var clarifai = require("./image_recog");
 
+app.use(bodyParser.json());
+app.use(express.static("public"));
+app.use(compression());
+
 app.use(express.static("public"));
 var cookieSession = require("cookie-session");
 app.use(
@@ -141,8 +145,21 @@ app.post("/uploadimage", uploader.single("image"), s3.upload, function(
         }
     });
 });
-app.get("/imageslist", function(req, res) {
+app.get("/getimages", function(req, res) {
     db.getImages().then(response => {
+        res.json(response.rows);
+    });
+});
+app.get("/imagesbycriteria", function(req, res) {
+    db.getImagesByCriteria(req.query.criteria).then(response => {
+        console.log("response.rows : ", response.rows);
+        res.json(response.rows);
+    });
+});
+app.get("/image", function(req, res) {
+    console.log("response.rows : ", req.query.id);
+    db.getImageById(req.query.id).then(response => {
+        console.log("response.rows : ", response.rows);
         res.json(response.rows);
     });
 });
@@ -152,16 +169,28 @@ app.get("/images", function(req, res) {
     );
     console.log("images id : " + id);
     db.getImageById(id).then(response => {
-        console.log("getImageById : " + response.rows[0]);
         res.json(response.rows[0]);
     });
 });
-app.set("/updateimage", function(req, res) {
-    db.updateImage(data).then(response => {
-        res.json(response.rows[0]);
-    });
+app.post("/updateimage", function(req, res) {
+    console.log("Inside imagedata : body", req.body[0].blog);
+
+    db
+        .updateImage(
+            req.body[0].id,
+            req.body[0].title,
+            req.body[0].url,
+            req.body[0].description,
+            req.body[0].hashtags,
+            req.body[0].keywords,
+            req.body[0].articles,
+            req.body[0].blog
+        )
+        .then(response => {
+            res.json(response.rows[0]);
+        });
 });
-app.set("/deleteimage", function(req, res) {
+app.post("/deleteimage", function(req, res) {
     db.deleteImage(imageId).then(response => {
         res.json(response.rows[0]);
     });

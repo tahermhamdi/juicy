@@ -2,17 +2,19 @@ import React from "react";
 import axios from "axios";
 import ReactDOM from "react-dom";
 import ImageForm from "./ImageForm";
-import * as Actions from "../actions";
 import { Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Provider } from "react-redux";
 import { bindActionCreators } from "redux";
+import Dropzone from "react-dropzone";
+import { uploadImage } from "../actions";
 
 class Uploader extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { imageFormVisible: false, imagedata: "" };
+
+        this.state = { imageFormVisible: false, imagedata: "", imageFiles: [] };
         this.handleChange = this.handleChange.bind(this);
         this.upload = this.upload.bind(this);
         this.setFile = this.setFile.bind(this);
@@ -21,11 +23,16 @@ class Uploader extends React.Component {
     handleChange(e) {
         this[e.target.name] = e.target.value;
     }
-
+    onDrop(imageFiles) {
+        this.setState({
+            imageFiles: imageFiles
+        });
+        this.state.url = imageFiles[0];
+    }
     upload() {
         var formData = new FormData();
         formData.append("image", this.state.url);
-        this.props.actions.uploadImage(formData);
+        this.props.dispatch(uploadImage(formData));
         this.setState({
             imageFormVisible: true
         });
@@ -35,31 +42,52 @@ class Uploader extends React.Component {
     }
     render() {
         return (
-            <BrowserRouter>
-                <div>
-                    <div>
-                        <input type="file" onChange={this.setFile} />
-                        <button onClick={this.upload}>
+            <div>
+                <div className="uploadBox">
+                    <Dropzone
+                        className="dragAndDropArea"
+                        onChange={this.setFile}
+                        onDrop={this.onDrop.bind(this)}
+                        accept="image/jpeg,image/jpg,image/tiff,image/gif,image/png"
+                        multiple={false}
+                    >
+                        <div className="uploadDivTag">
+                            Drag and drop or click here
+                            {this.state.imageFiles.length > 0 ? (
+                                <div>
+                                    <div className="divPhotoDragNew">
+                                        {this.state.imageFiles.map(file => (
+                                            <img
+                                                key={file.preview}
+                                                src={file.preview}
+                                                className="photoDragNew"
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : null}
+                        </div>
+                    </Dropzone>
+                </div>
+                {this.state.imageFiles.length > 0 ? (
+                    <div className="uploadButtonDivTag">
+                        <button onClick={this.upload} className="buttonTag">
                             <p>Upload</p>
                         </button>
                     </div>
-                    {this.state.imageFormVisible && (
-                        <Route render={() => <ImageForm />} />
-                    )}
-                </div>
-            </BrowserRouter>
+                ) : null}
+
+                {this.state.imageFormVisible && (
+                    <Route render={() => <ImageForm />} />
+                )}
+            </div>
         );
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = function(state) {
     return {
         imagedata: state.imagedata
     };
-}
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(Actions, dispatch)
-    };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Uploader);
+};
+export default connect(mapStateToProps)(Uploader);

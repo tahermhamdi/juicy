@@ -25,8 +25,6 @@ class ImagesList extends React.Component {
             <div>
                 <div>
                     <input
-                        name="criteria"
-                        id="criteria"
                         type="text"
                         placeholder="search images"
                         onChange={event =>
@@ -38,16 +36,16 @@ class ImagesList extends React.Component {
                 {imageslist.map(image => {
                     return (
                         <div key={image.id} className="box">
-                            <img src={image.url} className="imageImgTag" />
+                            <Link
+                                to={{
+                                    pathname: `/images/${image.id}`
+                                }}
+                            >
+                                <img src={image.url} className="imageImgTag" />
+                            </Link>
+                            {image.title}/{image.description}
                             <div className="details">
-                                <Link
-                                    to={{
-                                        pathname: `/images/${image.id}`
-                                    }}
-                                    target="_new"
-                                >
-                                    {image.title}
-                                </Link>
+                                <br />
                                 {image.hashtags}
                                 <br />
                             </div>

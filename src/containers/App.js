@@ -1,34 +1,24 @@
 import React from "react";
 import * as Actions from "../actions";
 import Header from "../components/Header";
-import ImagesList from "../components/ImagesList";
 import Uploader from "../components/Uploader";
+import ImageModal from "../components/ImageModal";
+import ImagesCalendar from "../components/ImagesCalendar";
 import { Route } from "react-router-dom";
-import { BrowserRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 export default class App extends React.Component {
     render() {
         return (
-            <BrowserRouter>
-                <div className="app">
-                    <Route path="/" render={() => <Header />} />
-                    <div className="container">
-                        <div className="links">
-                            <ul>
-                                <li>
-                                    <Link to="/imageslist">Images list</Link>
-                                </li>
-                            </ul>
-                        </div>
-                        <Route
-                            path="/imageslist"
-                            render={() => <ImagesList />}
-                        />
-                        <Route path="/" render={() => <Uploader />} />
-                    </div>
-                </div>
-            </BrowserRouter>
+            <div className="app">
+                <Route path="/" render={() => <Header />} />
+                <Route exact path="/" render={() => <Uploader />} />
+                <Route exact path={"/images/:id"} component={ImageModal} />
+                <Route
+                    exact
+                    path={"/imagescalendar"}
+                    component={ImagesCalendar}
+                />
+            </div>
         );
     }
 }

@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { Provider } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
-import { updateField, updateImage } from "../actions";
+import { updateField, updateImage, requestImage } from "../actions";
 
-class ImageForm extends React.Component {
+class ImageModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -27,10 +27,9 @@ class ImageForm extends React.Component {
 
         //this.setState({ value: event.target.value });
     }
-
-    // componentDidMount() {
-    //     this.props.actions.requestImage(this.props.id);
-    // }
+    componentDidMount() {
+        this.props.dispatch(requestImage(this.props.match.params.id));
+    }
     updateImage() {
         console.log("updateImage ... ", this.props);
         this.props.dispatch(updateImage(this.props.imagedata));
@@ -40,7 +39,7 @@ class ImageForm extends React.Component {
         var chain = new MarkovChain();
         var blogChain = this.refs.blog.value;
         blogChain = blogChain.replace(
-            /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
+            /[`~!@#$%^&*()_|+\-=?;:'"”“’,.<>\{\}\[\]\\\/]/gi,
             ""
         );
         console.log("blogChain =>", blogChain);
@@ -65,6 +64,7 @@ class ImageForm extends React.Component {
                     return (
                         <div className="forms" key={image.id}>
                             <div>
+                                <img src={image.url} className="imageModal" />
                                 <table className="formkeywords">
                                     <tbody>
                                         <tr>
@@ -146,7 +146,7 @@ class ImageForm extends React.Component {
                                     className="textareaArticles"
                                     rows="10"
                                     cols="100"
-                                    onChange={this.handleBlog}
+                                    onChange={this.handleChange}
                                     defaultValue={image.articles || ""}
                                 />
                             </div>
@@ -155,9 +155,10 @@ class ImageForm extends React.Component {
                                 ​<textarea
                                     className="textareaBlog"
                                     ref="blog"
+                                    name="blog"
                                     rows="30"
                                     cols="100"
-                                    onChange={this.handleChange}
+                                    onChange={this.handleBlog}
                                     defaultValue={image.blog || ""}
                                 />
                                 <br />
@@ -196,4 +197,4 @@ const mapStateToProps = function(state) {
         imagedata: state.imagedata
     };
 };
-export default connect(mapStateToProps)(ImageForm);
+export default connect(mapStateToProps)(ImageModal);
