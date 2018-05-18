@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { Provider } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { updateField, updateImage } from "../actions";
 
@@ -32,7 +31,6 @@ class ImageForm extends React.Component {
     //     this.props.actions.requestImage(this.props.id);
     // }
     updateImage() {
-        console.log("updateImage ... ", this.props);
         this.props.dispatch(updateImage(this.props.imagedata));
     }
     generateText() {
@@ -43,7 +41,6 @@ class ImageForm extends React.Component {
             /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
             ""
         );
-        console.log("blogChain =>", blogChain);
         chain.generateChain(blogChain);
 
         // Generate strings to your heart's content!
@@ -146,7 +143,7 @@ class ImageForm extends React.Component {
                                     className="textareaArticles"
                                     rows="10"
                                     cols="100"
-                                    onChange={this.handleBlog}
+                                    onChange={this.handleChange}
                                     defaultValue={image.articles || ""}
                                 />
                             </div>
@@ -154,10 +151,11 @@ class ImageForm extends React.Component {
                                 <h5>Blog</h5>
                                 ​<textarea
                                     className="textareaBlog"
+                                    name="blog"
                                     ref="blog"
                                     rows="30"
                                     cols="100"
-                                    onChange={this.handleChange}
+                                    onChange={this.handleBlog}
                                     defaultValue={image.blog || ""}
                                 />
                                 <br />
