@@ -18,7 +18,6 @@ class Selectable extends React.Component {
     }
 
     render() {
-        console.log("RENDERING BIGCALENDAR : ", this.state);
         return (
             <div className="calendar">
                 <BigCalendar
@@ -35,16 +34,7 @@ class Selectable extends React.Component {
                                 `\naction: ${slotInfo.action}`
                         );
                         this.props.dispatch(openModal(slotInfo, events));
-                        console.log(
-                            "IMAGE CALENDAR TITLE PROPS : " +
-                                this.props.imageCalendar
-                        );
-                        events.push({
-                            id: 15,
-                            title: "imageConst",
-                            start: slotInfo.start,
-                            end: slotInfo.end
-                        });
+
                         this.setState({ events: events });
                         //this.props.dispatch(saveEvents());
                     }}
@@ -55,7 +45,6 @@ class Selectable extends React.Component {
 }
 
 const mapStateToProps = function(state) {
-    console.log("STATE CHECK EVENTS mapStateToProps: ", state);
     return {
         imageslist: state.imageslist || [],
         imageCalendar: state.imageCalendar,

@@ -19,6 +19,7 @@ body {
     margin-top: 200px;
 }
 .calendar {
+    margin-top: 60px;
     width: 100%;
     float: left;
 }

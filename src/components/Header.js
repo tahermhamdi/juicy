@@ -12,6 +12,10 @@ export default class Header extends React.Component {
         this.state = {};
     }
     render() {
+        console.log(
+            "document.location.pathname :",
+            document.location.pathname.indexOf("/calendar")
+        );
         return (
             <div>
                 <title>Ease your social posts</title>
