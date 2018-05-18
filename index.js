@@ -6,6 +6,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 const db = require("./db");
 const s3 = require("./s3");
+const fs = require("fs");
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
@@ -145,6 +146,29 @@ app.post("/uploadimage", uploader.single("image"), s3.upload, function(
         }
     });
 });
+app.get("/setslot", function(req, res) {
+    console.log("INSIDE setslot");
+    const id = req.query.id;
+    const slotinfo = req.query.slotinfo;
+    console.log("INSIDE setslot id : " + id);
+    console.log("INSIDE setslot slotinfo : " + slotinfo);
+    fs.readFile("./src/events.js", "utf8", function readFileCallback(
+        err,
+        data
+    ) {
+        if (err) {
+            console.log(err);
+        } else {
+            obj = JSON.parse(data); //now it an object
+            console.log("INSIDE writeFile 1");
+            obj.table.push({ id: id, slotinfo: slotinfo }); //add some data
+            console.log("INSIDE writeFile 2");
+            json = JSON.stringify(obj); //convert it back to json
+            fs.writeFile("./src/events.js", json, "utf8", callback); // write it back
+        }
+    });
+});
+
 app.get("/getimages", function(req, res) {
     db.getImages().then(response => {
         res.json(response.rows);

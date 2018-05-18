@@ -157,41 +157,9 @@ button.rbc-input::-moz-focus-inner {
     border-color: #adadad;
 }
 .rbc-btn-group {
-    display: inline-block;
-    white-space: nowrap;
+    display: hidden;
 }
-.rbc-btn-group > button:first-child:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.rbc-btn-group > button:last-child:not(:first-child) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-.rbc-rtl .rbc-btn-group > button:first-child:not(:last-child) {
-    border-radius: 4px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-.rbc-rtl .rbc-btn-group > button:last-child:not(:first-child) {
-    border-radius: 4px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.rbc-btn-group > button:not(:first-child):not(:last-child) {
-    border-radius: 0;
-}
-.rbc-btn-group button + button {
-    margin-left: -1px;
-}
-.rbc-rtl .rbc-btn-group button + button {
-    margin-left: 0;
-    margin-right: -1px;
-}
-.rbc-btn-group + .rbc-btn-group,
-.rbc-btn-group + button {
-    margin-left: 10px;
-}
+
 .rbc-event {
     padding: 2px 5px;
     background-color: #3174ad;
@@ -260,23 +228,7 @@ button.rbc-input::-moz-focus-inner {
     white-space: nowrap;
 }
 .rbc-month-view {
-    position: relative;
-    border: 1px solid #ddd;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex: 1 0 0;
-    -ms-flex: 1 0 0px;
-    flex: 1 0 0;
-    width: 100%;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-user-select: none;
-    height: 100%;
+    display: none;
 }
 .rbc-month-header {
     display: -webkit-flex;

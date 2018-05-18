@@ -14,8 +14,13 @@ body {
     overflow: hidden;
 }
 .imageImgTag {
-    width: 200px;
+    width: 100%;
     height: auto;
+    margin-top: 200px;
+}
+.calendar {
+    width: 100%;
+    float: left;
 }
 .formImgTag {
     width: 300px;
@@ -298,6 +303,29 @@ textarea:focus {
     margin-bottom: 3px;
     margin-right: 3px;
     margin-left: 3px;
+}
+.boxmodal {
+    background-color: white;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    align: center;
+    overflow: hidden;
+    position: relative;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+.boxmodal img {
+    position: absolute;
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+    margin: auto;
+    max-height: 200px;
+    max-width: auto;
 }
 .box img {
     position: absolute;

@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { Provider } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { updateField, updateImage, requestImage } from "../actions";
+import Modal from "react-modal";
 
 class ImageModal extends React.Component {
     constructor(props) {

@@ -3,18 +3,30 @@ import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { Provider } from "react-redux";
 import { bindActionCreators } from "redux";
-import { imagesList, onCriteriaChange } from "../actions";
+import { imagesList, onCriteriaChange, closeModal } from "../actions";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
 
-class ImagesList extends React.Component {
+class ImagesCalendar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.onFieldChange = this.onFieldChange.bind(this);
+        this.handleSelectedImage = this.handleSelectedImage.bind(this);
+    }
+
+    handleSelectedImage(event) {
+        this.props.dispatch(
+            closeModal(
+                event.currentTarget.attributes["imageid"].value,
+                this.props.slotinfo
+            )
+        );
     }
     onFieldChange(criteria) {
-        console.log(criteria);
         this.props.dispatch(onCriteriaChange(criteria));
+    }
+    componentWillMount() {
+        Modal.setAppElement("body");
     }
     componentDidMount() {
         this.props.dispatch(imagesList());
@@ -22,45 +34,33 @@ class ImagesList extends React.Component {
     render() {
         let imageslist = this.props.imageslist;
         return (
-            <div>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="search images"
-                        onChange={event =>
-                            this.onFieldChange(event.target.value)
-                        }
-                    />
-                </div>
+            <Modal isOpen={this.props.modalVisible}>
+                <h3>Action on the image</h3>
+                <input type="text" key="action" />
                 <h1>/ / /</h1>
                 {imageslist.map(image => {
                     return (
-                        <div key={image.id} className="box">
-                            <Link
-                                to={{
-                                    pathname: `/images/${image.id}`
-                                }}
-                            >
-                                <img src={image.url} className="imageImgTag" />
-                            </Link>
-                            {image.title}/{image.description}
-                            <div className="details">
-                                <br />
-                                {image.hashtags}
-                                <br />
-                            </div>
+                        <div
+                            key={image.id}
+                            imageid={image.id}
+                            className="box"
+                            onClick={this.handleSelectedImage}
+                        >
+                            <img src={image.url} />
+                            {image.title}
                         </div>
                     );
                 })}
                 <hr />
-            </div>
+            </Modal>
         );
     }
 }
 
 const mapStateToProps = function(state) {
     return {
-        imageslist: state.imageslist || []
+        imageslist: state.imageslist || [],
+        slotinfo: state.slotinfo
     };
 };
-export default connect(mapStateToProps)(ImagesList);
+export default connect(mapStateToProps)(ImagesCalendar);

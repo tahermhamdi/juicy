@@ -88,7 +88,7 @@ export default [
     },
     {
         id: 13,
-        title: "Instrgam post of the hat image",
+        title: "Instagram post of the hat image",
         start: new Date(2018, 5, 20, 19, 30, 0),
         end: new Date(2018, 5, 22, 2, 0, 0)
     },

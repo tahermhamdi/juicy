@@ -1,5 +1,8 @@
-export default function reducer(state = {}, action) {
-    console.log("action.type  : ", action.type);
+const initialState = {
+    selectedImage: null,
+    modalVisible: false
+};
+export default function reducer(state = initialState, action) {
     if (action.type == "UPLOAD_IMAGE") {
         return {
             ...state,
@@ -27,15 +30,30 @@ export default function reducer(state = {}, action) {
         };
     }
     if (action.type == "IMAGES_CRITERIA") {
-        console.log("action.imageslist : ", action.imageslist);
         state = {
             imageslist: action.imageslist
         };
     }
     if (action.type == "REQUEST_IMAGE") {
-        console.log("action.imagedata : ", action.imagedata);
         state = {
             imagedata: action.imagedata
+        };
+    }
+
+    if (action.type == "OPEN_MODAL") {
+        state = {
+            ...state,
+            slotinfo: action.slotinfo,
+            modalVisible: true
+        };
+    }
+    if (action.type == "CLOSE_MODAL") {
+        state = {
+            ...state,
+            imageCalendar: state.imageslist.filter(
+                image => image.id == action.selectedImage
+            ),
+            modalVisible: false
         };
     }
     return state;

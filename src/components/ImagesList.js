@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { Provider } from "react-redux";
-import { bindActionCreators } from "redux";
 import { imagesList, onCriteriaChange } from "../actions";
 import { Link } from "react-router-dom";
 
