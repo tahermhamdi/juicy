@@ -15,7 +15,7 @@ function getImagesByCriteria(name) {
     return db.query(
         "SELECT * FROM IMAGES WHERE LOWER(IMAGES.title) LIKE LOWER ('%" +
             name +
-            "%')"
+            "%') ORDER BY IMAGES.id DESC"
     );
 }
 function deleteImage(image_id) {
