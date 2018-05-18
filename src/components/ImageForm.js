@@ -27,11 +27,10 @@ class ImageForm extends React.Component {
         //this.setState({ value: event.target.value });
     }
 
-    // componentDidMount() {
-    //     this.props.actions.requestImage(this.props.id);
-    // }
     updateImage() {
-        this.props.dispatch(updateImage(this.props.imagedata));
+        const action = updateImage(this.props.imagedata);
+        this.props.dispatch(action);
+        action.then(() => this.props.history.push("/imageslist"));
     }
     generateText() {
         var MarkovChain = require("markovchain-generate");

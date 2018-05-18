@@ -77,9 +77,7 @@ class Uploader extends React.Component {
                     </div>
                 ) : null}
 
-                {this.state.imageFormVisible && (
-                    <Route render={() => <ImageForm />} />
-                )}
+                {this.state.imageFormVisible && <Route component={ImageForm} />}
             </div>
         );
     }
